@@ -1,0 +1,793 @@
+views:
+  - theme: Backend-selected
+    title: Home
+    path: home
+    icon: mdi:home
+    type: custom:vertical-layout
+    badges: []
+    cards:
+      - square: true
+        columns: 2
+        type: grid
+        cards:
+          - show_name: false
+            show_icon: true
+            type: button
+            tap_action:
+              action: navigate
+              navigation_path: security
+            name: Security
+            icon: mdi:security
+          - show_name: false
+            show_icon: true
+            type: button
+            tap_action:
+              action: navigate
+              navigation_path: garage
+            name: Garage
+            icon: mdi:garage-variant
+          - show_name: false
+            show_icon: true
+            type: button
+            tap_action:
+              action: navigate
+              navigation_path: climate-control
+            name: Climate Control
+            icon: mdi:air-conditioner
+          - show_name: false
+            show_icon: true
+            type: button
+            tap_action:
+              action: navigate
+              navigation_path: lighting
+            name: Lighting
+            icon: mdi:ceiling-light-multiple
+          - show_name: false
+            show_icon: true
+            type: button
+            tap_action:
+              action: navigate
+              navigation_path: media
+            name: Media
+            icon: mdi:television-classic
+          - show_name: false
+            show_icon: true
+            type: button
+            tap_action:
+              action: navigate
+              navigation_path: shopping
+            name: Shopping
+            icon: mdi:cart
+          - show_name: true
+            show_icon: true
+            type: button
+            tap_action:
+              action: navigate
+              navigation_path: chores
+            entity: ''
+            icon: mdi:format-list-checks
+          - show_name: false
+            show_icon: true
+            type: button
+            tap_action:
+              action: navigate
+              navigation_path: aquarium
+            entity: ''
+            icon: mdi:fishbowl-outline
+          - show_name: false
+            show_icon: true
+            type: button
+            tap_action:
+              action: navigate
+              navigation_path: information
+            name: Information
+            icon: mdi:chart-line
+          - show_name: false
+            show_icon: true
+            type: button
+            tap_action:
+              action: navigate
+              navigation_path: calendar
+            name: Calendar
+            icon: mdi:calendar
+  - theme: Backend-selected
+    title: 'Security '
+    path: security
+    icon: mdi:security
+    type: custom:vertical-layout
+    badges: []
+    cards:
+      - type: picture
+        tap_action:
+          action: navigate
+          navigation_path: home
+        hold_action:
+          action: none
+        image: https://i.imgur.com/
+      - type: conditional
+        conditions:
+          - entity: switch.bar_led
+            state: 'off'
+        card:
+          camera_view: auto
+          type: picture-glance
+          entities:
+            - entity: light.front_door_downlight
+            - entity: light.front_door
+          camera_image: camera.camera
+          title: Front Door
+      - type: alarm-panel
+        states:
+          - arm_home
+        entity: alarm_control_panel.alarmo
+        name: Backdoor Security
+      - type: entity
+        entity: binary_sensor.back_door_sensor
+        name: Back Door
+        state_color: true
+      - type: grid
+        cards:
+          - type: button
+            tap_action:
+              action: navigate
+              navigation_path: home
+            icon: mdi:home
+            icon_height: 40px
+            show_name: false
+            show_state: false
+        square: false
+        columns: 1
+  - theme: Backend-selected
+    title: Garage
+    path: garage
+    icon: mdi:garage-variant
+    type: custom:vertical-layout
+    badges: []
+    cards:
+      - type: picture
+        image: https://i.imgur.com/
+        tap_action:
+          action: navigate
+          navigation_path: home
+        hold_action:
+          action: none
+      - show_name: false
+        show_icon: true
+        type: button
+        tap_action:
+          action: call-service
+          service: switch.toggle
+          service_data: {}
+          target:
+            entity_id: switch.garage
+        entity: cover.garage_door
+      - type: grid
+        cards:
+          - type: button
+            tap_action:
+              action: navigate
+              navigation_path: home
+            icon: mdi:home
+            icon_height: 40px
+            show_name: false
+            show_state: false
+        square: false
+        columns: 1
+  - theme: Backend-selected
+    title: Climate Control
+    path: climate-control
+    icon: mdi:air-conditioner
+    type: custom:vertical-layout
+    badges: []
+    cards:
+      - type: picture
+        tap_action:
+          action: navigate
+          navigation_path: home
+        hold_action:
+          action: none
+        image: https://i.imgur.com/
+      - type: custom:weather-card
+        entity: weather.home
+        number_of_forecasts: '5'
+        forecast: false
+        hourly_forecast: false
+        details: true
+      - type: thermostat
+        entity: climate.airconditioner
+        name: Living Room
+      - square: false
+        columns: 1
+        type: grid
+        cards:
+          - hours_to_show: 12
+            graph: line
+            type: sensor
+            entity: sensor.broadlink_ir_humidity
+            detail: 2
+            name: 'Living Room Humidity '
+            icon: mdi:air-humidifier
+      - square: false
+        columns: 1
+        type: grid
+        cards:
+          - hours_to_show: 12
+            graph: line
+            type: sensor
+            entity: sensor.broadlink_ir_temperature
+            detail: 2
+            name: Living Room Temperature
+            icon: ''
+      - type: custom:button-card
+        entity: switch.fan
+        icon: mdi:fan
+        name: Bedroom Fan
+        size: 75px
+        show_state: true
+        layout: name_state
+        tap_action:
+          action: toggle
+        state:
+          - value: 'on'
+            spin: true
+          - value: 'off'
+      - type: grid
+        cards:
+          - type: button
+            tap_action:
+              action: navigate
+              navigation_path: home
+            icon: mdi:home
+            icon_height: 40px
+            show_name: false
+            show_state: false
+        square: false
+        columns: 1
+  - theme: Backend-selected
+    title: Lighting
+    path: lighting
+    icon: mdi:ceiling-light-multiple
+    type: custom:vertical-layout
+    badges: []
+    cards:
+      - type: picture
+        image: https://i.imgur.com/
+        tap_action:
+          action: navigate
+          navigation_path: home
+        hold_action:
+          action: none
+      - type: entities
+        entities:
+          - entity: light.kitchen
+            icon: mdi:led-strip-variant
+            secondary_info: brightness
+          - entity: light.hue_lightstrip_plus_1
+            name: TV
+            icon: mdi:led-strip-variant
+            secondary_info: brightness
+          - entity: light.tv
+            icon: mdi:led-strip-variant
+            secondary_info: brightness
+            name: Entertainment Unit
+          - entity: light.shapes_6f4d
+            name: Nano Leaf
+            secondary_info: brightness
+            icon: mdi:leaf
+          - entity: switch.axolotl_light
+            icon: mdi:led-strip-variant
+        title: Living Space
+        state_color: true
+        footer:
+          type: buttons
+          entities:
+            - entity: scene.living_room_crystalline
+              icon: mdi:diamond-stone
+            - entity: scene.living_room_energize
+              icon: mdi:snowflake
+            - entity: scene.living_room_festive_fun
+              icon: mdi:atom
+            - entity: scene.living_room_forest_adventure
+              icon: mdi:tree-outline
+            - entity: scene.living_room_painted_sky
+              icon: mdi:weather-night-partly-cloudy
+            - entity: scene.living_room_ruby_glow
+              icon: mdi:redhat
+            - entity: scene.living_room_starlight
+              icon: mdi:star-david
+            - entity: scene.living_room_tokyo
+              icon: mdi:city-variant-outline
+            - entity: scene.living_room_tyrell
+              icon: mdi:alien
+            - entity: scene.living_room_under_the_tree
+              icon: mdi:peace
+      - type: entities
+        entities:
+          - entity: light.tv_light_mb
+            icon: mdi:led-strip-variant
+            secondary_info: brightness
+            name: TV
+          - entity: light.entertainment_mb
+            secondary_info: brightness
+            icon: mdi:led-strip-variant
+            name: Entertainment Unit
+          - entity: light.bed
+            icon: mdi:led-strip-variant
+            secondary_info: brightness
+          - entity: light.ensuite_bathroom
+            name: Ensuite
+            icon: mdi:led-strip-variant
+            secondary_info: brightness
+          - entity: switch.fairy_lights_socket_1
+            icon: mdi:string-lights
+            name: Fairy Lights
+        title: Master Bedroom
+        footer:
+          type: buttons
+          entities:
+            - entity: scene.master_bedroom_chill
+              icon: mdi:sofa-outline
+            - entity: scene.master_bedroom_shrek
+              icon: mdi:account-cowboy-hat-outline
+            - entity: scene.master_bedroom_vibes
+              icon: mdi:atom
+            - entity: scene.master_bedroom_sacrificial_tones
+              icon: mdi:emoticon-devil-outline
+            - entity: scene.master_bedroom_gaming
+              icon: mdi:gamepad-variant-outline
+        state_color: true
+      - type: entities
+        entities:
+          - entity: light.genio_smart_wifi_bulb_a60_rgb_cct
+        title: Bedroom
+        state_color: true
+      - type: entities
+        entities:
+          - entity: light.games_room
+            name: Window Lighting
+            secondary_info: brightness
+            icon: mdi:led-strip-variant
+          - entity: light.wled
+            name: WLED Desk Lighting
+            secondary_info: brightness
+            tap_action:
+              action: more-info
+          - entity: input_boolean.galaxy_light
+          - entity: switch.lava_lamp
+            secondary_info: none
+        title: Office
+        state_color: true
+      - type: entities
+        entities:
+          - entity: light.hallway_lights
+            icon: mdi:light-recessed
+            secondary_info: brightness
+        title: Hallway
+        state_color: true
+      - type: entities
+        entities:
+          - entity: light.bathroom_lights
+            icon: mdi:light-recessed
+            secondary_info: brightness
+        title: Bathroom
+      - type: entities
+        entities:
+          - entity: light.front_door
+            icon: mdi:coach-lamp
+            secondary_info: brightness
+          - entity: light.front_door_downlight
+            icon: mdi:light-recessed
+            secondary_info: brightness
+        title: Front Door
+      - type: entities
+        entities:
+          - entity: switch.outdoor_party_lights
+            name: Party Lights
+            icon: mdi:string-lights
+          - entity: light.backyard_light
+            icon: mdi:coach-lamp
+            name: Flood Light
+        title: Backyard
+      - type: grid
+        cards:
+          - type: button
+            tap_action:
+              action: navigate
+              navigation_path: home
+            icon: mdi:home
+            icon_height: 40px
+            show_name: false
+            show_state: false
+        square: false
+        columns: 1
+  - theme: Backend-selected
+    title: Media
+    path: media
+    icon: mdi:television-classic
+    type: custom:vertical-layout
+    badges: []
+    cards:
+      - type: picture
+        image: https://i.imgur.com/
+        tap_action:
+          action: navigate
+          navigation_path: home
+        hold_action:
+          action: none
+      - type: custom:tv-card
+        entity: media_player.broadlink_tv
+        tv: true
+        power:
+          service: script.tv_power
+        home:
+          service: script.tv_home
+        back:
+          service: script.tv_back
+        up:
+          service: script.tv_up
+        down:
+          service: script.tv_down
+        left:
+          service: script.tv_left
+        right:
+          service: script.tv_right
+        select:
+          service: script.tv_select
+        volume_up:
+          service: script.soundbar_volume_up
+        volume_down:
+          service: script.soundbar_volume_down
+        volume_mute:
+          service: script.soundbar_power
+        play:
+          service: script.tv_play_pause
+        forward:
+          service: script.tv_forward
+        reverse:
+          service: script.tv_reverse
+      - type: picture
+        image: https://i.imgur.com/
+        tap_action:
+          action: navigate
+          navigation_path: home
+        hold_action:
+          action: none
+      - type: entities
+        entities:
+          - entity: media_player.xboxone
+            icon: mdi:microsoft-xbox
+            name: XBOX One
+          - entity: media_player.lenovosmartclock6850
+            name: Bedroom Clock
+            icon: mdi:clock-digital
+          - entity: media_player.the_dungeon_speaker
+            name: Master Bedroom Google Home
+            icon: mdi:google-home
+          - entity: media_player.living_room_speaker
+            name: Living Room Google Home
+            icon: mdi:google-home
+      - type: grid
+        cards:
+          - type: button
+            tap_action:
+              action: navigate
+              navigation_path: home
+            icon: mdi:home
+            icon_height: 40px
+            show_name: false
+            show_state: false
+        square: false
+        columns: 1
+  - theme: Backend-selected
+    title: Shopping List
+    icon: mdi:cart
+    path: shopping
+    type: custom:vertical-layout
+    badges: []
+    cards:
+      - type: picture
+        image: https://i.imgur.com/
+        tap_action:
+          action: navigate
+          navigation_path: home
+        hold_action:
+          action: none
+      - type: shopping-list
+      - type: grid
+        cards:
+          - type: button
+            tap_action:
+              action: navigate
+              navigation_path: home
+            icon: mdi:home
+            icon_height: 40px
+            show_name: false
+            show_state: false
+        square: false
+        columns: 1
+  - theme: Backend-selected
+    title: chores
+    path: chores
+    icon: mdi:format-list-checks
+    type: custom:vertical-layout
+    badges: []
+    cards:
+      - type: picture
+        image: https://i.imgur.com/
+        tap_action:
+          action: navigate
+          navigation_path: home
+        hold_action:
+          action: none
+      - type: conditional
+        conditions:
+          - entity: counter.days_since_last_litter_change
+            state: '7'
+        card:
+          type: custom:button-card
+          name: Cat Litter Due TODAY!
+          icon: mdi:cat
+          size: 100px
+          color: red
+          color_type: card
+          styles:
+            card:
+              - animation: blink 1s ease infinite
+      - type: conditional
+        conditions:
+          - entity: calendar.garbage_greenwaste
+            state: 'on'
+        card:
+          square: false
+          columns: 2
+          type: grid
+          cards:
+            - type: custom:button-card
+              entity: input_boolean.garbage_bin
+              icon: mdi:trash-can-outline
+              value: true
+              size: 100px
+              tap_action:
+                action: toggle
+              state:
+                - value: 'on'
+                  color: red
+                  name: General Waste
+                - value: 'off'
+                  color: green
+                  name: General Waste
+            - type: custom:button-card
+              entity: input_boolean.greenwaste_bin
+              name: Green Waste
+              icon: mdi:trash-can-outline
+              size: 100px
+              tap_action:
+                action: toggle
+              state:
+                - value: 'on'
+                  color: red
+                  name: Green Waste
+                - value: 'off'
+                  color: green
+                  name: Green Waste
+      - type: conditional
+        conditions:
+          - entity: calendar.garbage_recycling
+            state: 'on'
+        card:
+          square: false
+          columns: 2
+          type: grid
+          cards:
+            - type: custom:button-card
+              entity: input_boolean.garbage_bin
+              icon: mdi:trash-can-outline
+              value: true
+              size: 100px
+              tap_action:
+                action: toggle
+              state:
+                - value: 'on'
+                  color: red
+                  name: General Waste
+                - value: 'off'
+                  color: green
+                  name: General Waste
+            - type: custom:button-card
+              entity: input_boolean.recycling_bin
+              name: Recycling
+              icon: mdi:trash-can-outline
+              size: 100px
+              tap_action:
+                action: toggle
+              state:
+                - value: 'on'
+                  color: red
+                - value: 'off'
+                  color: green
+      - type: entity
+        entity: counter.days_since_last_litter_change
+        unit: days ago
+        state_color: false
+        name: Cat litter replaced
+      - type: entity
+        unit: days ago
+        state_color: false
+        name: Shower last cleaned
+        entity: counter.shower_clean
+      - type: entity
+        unit: days ago
+        state_color: false
+        entity: counter.bathroom_clean
+        name: Bathroom last cleaned
+      - type: entity
+        unit: days ago
+        state_color: false
+        name: Bed linen last changed
+        entity: counter.bed_linen
+      - type: grid
+        cards:
+          - type: button
+            tap_action:
+              action: navigate
+              navigation_path: home
+            icon: mdi:home
+            icon_height: 40px
+            show_name: false
+            show_state: false
+        square: false
+        columns: 1
+  - theme: Backend-selected
+    title: aquarium
+    path: aquarium
+    icon: mdi:fishbowl-outline
+    type: custom:vertical-layout
+    badges: []
+    cards:
+      - type: picture
+        image: https://i.imgur.com/
+        tap_action:
+          action: navigate
+          navigation_path: home
+        hold_action:
+          action: none
+      - type: entities
+        entities:
+          - entity: switch.axolotl_light_2
+            name: Axolotl Aquarium Light
+            secondary_info: last-changed
+          - entity: switch.kitchen_aquarium_light
+            name: Kitchen Aquarium Light
+            icon: mdi:fishbowl-outline
+            secondary_info: last-changed
+          - entity: switch.bathroom_aquarium_light
+            name: Bathroom Aquarium Light
+            icon: mdi:fishbowl-outline
+            secondary_info: last-changed
+        title: Aquarium Lighting
+        state_color: true
+      - hours_to_show: 12
+        graph: line
+        type: sensor
+        detail: 1
+        name: Axolotl Aquarium Temperature
+        icon: mdi:fishbowl-outline
+        entity: sensor.sonoff_1001499432_temperature
+      - type: entity
+        unit: days ago
+        state_color: false
+        entity: counter.axolotl_aquarium_water_change
+        name: Axolotl water changed
+      - type: entity
+        unit: days ago
+        state_color: false
+        name: Bathroom aquarium water changed
+        entity: counter.bathroom_aquarium_clean
+      - type: grid
+        cards:
+          - type: button
+            tap_action:
+              action: navigate
+              navigation_path: home
+            icon: mdi:home
+            icon_height: 40px
+            show_name: false
+            show_state: false
+        square: false
+        columns: 1
+  - theme: Backend-selected
+    title: 'Information '
+    path: information
+    icon: mdi:chart-line
+    type: custom:vertical-layout
+    badges: []
+    cards:
+      - type: picture
+        image: https://i.imgur.com/
+        tap_action:
+          action: navigate
+          navigation_path: home
+        hold_action:
+          action: none
+      - type: custom:search-card
+      - type: sensor
+        entity: sensor.speedtest_download
+        name: Internet Download Speed
+        detail: 1
+        graph: line
+      - type: sensor
+        graph: line
+        entity: sensor.speedtest_upload
+        name: Internet Upload Speed
+      - type: entity
+        entity: sensor.hp_envy_photo_6200_series
+        state_color: false
+      - type: grid
+        cards:
+          - type: gauge
+            min: 0
+            max: 100
+            entity: sensor.hp_envy_photo_6200_series_black_ink
+            name: HP Printer - Black Ink
+            needle: true
+          - type: gauge
+            entity: sensor.hp_envy_photo_6200_series_tri_color_ink
+            min: 0
+            max: 100
+            name: HP Printer - Colour Ink
+            needle: true
+        columns: 2
+      - type: entities
+        entities:
+          - entity: sensor.back_door_sensor_battery_state
+          - entity: sensor.ikea_of_sweden_tradfri_on_off_switch_8edb30fe_power
+            name: TRADFRI on/off switch
+            secondary_info: none
+          - entity: sensor.sm_t355y_battery_level
+            name: Tablet Battery
+            icon: ''
+        title: Batteries
+        show_header_toggle: false
+        state_color: true
+      - type: grid
+        cards:
+          - type: button
+            tap_action:
+              action: navigate
+              navigation_path: home
+            icon: mdi:home
+            icon_height: 40px
+            show_name: false
+            show_state: false
+        square: false
+        columns: 1
+  - theme: Backend-selected
+    icon: mdi:calendar-month
+    path: calendar
+    type: custom:vertical-layout
+    badges: []
+    cards:
+      - type: picture
+        image: https://i.imgur.com/
+        tap_action:
+          action: navigate
+          navigation_path: home
+        hold_action:
+          action: none
+      - type: calendar
+        entities:
+          - calendar.fakeemail_gmail_com
+        initial_view: dayGridMonth
+      - type: grid
+        cards:
+          - type: button
+            tap_action:
+              action: navigate
+              navigation_path: home
+            icon: mdi:home
+            icon_height: 40px
+            show_name: false
+            show_state: false
+        square: false
+        columns: 1
+title: ''
