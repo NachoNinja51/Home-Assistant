@@ -1,0 +1,44 @@
+type: entities
+entities:
+  - entity: light.kitchen
+    icon: mdi:led-strip-variant
+    secondary_info: brightness
+  - entity: light.hue_lightstrip_plus_1
+    name: TV
+    icon: mdi:led-strip-variant
+    secondary_info: brightness
+  - entity: light.tv
+    icon: mdi:led-strip-variant
+    secondary_info: brightness
+    name: Entertainment Unit
+  - entity: light.shapes_6f4d
+    name: Nano Leaf
+    secondary_info: brightness
+    icon: mdi:leaf
+  - entity: switch.axolotl_light
+    icon: mdi:led-strip-variant
+title: Living Space
+state_color: true
+footer:
+  type: buttons
+  entities:
+    - entity: scene.living_room_crystalline
+      icon: mdi:diamond-stone
+    - entity: scene.living_room_energize
+      icon: mdi:snowflake
+    - entity: scene.living_room_festive_fun
+      icon: mdi:atom
+    - entity: scene.living_room_forest_adventure
+      icon: mdi:tree-outline
+    - entity: scene.living_room_painted_sky
+      icon: mdi:weather-night-partly-cloudy
+    - entity: scene.living_room_ruby_glow
+      icon: mdi:redhat
+    - entity: scene.living_room_starlight
+      icon: mdi:star-david
+    - entity: scene.living_room_tokyo
+      icon: mdi:city-variant-outline
+    - entity: scene.living_room_tyrell
+      icon: mdi:alien
+    - entity: scene.living_room_under_the_tree
+      icon: mdi:peace
