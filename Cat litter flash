@@ -1,0 +1,14 @@
+type: conditional
+conditions:
+  - entity: counter.days_since_last_litter_change
+    state: '7'
+card:
+  type: custom:button-card
+  name: Cat Litter Due TODAY!
+  icon: mdi:cat
+  size: 100px
+  color: red
+  color_type: card
+  styles:
+    card:
+      - animation: blink 1s ease infinite
