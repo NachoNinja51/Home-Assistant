@@ -1,0 +1,13 @@
+type: custom:button-card
+entity: switch.fan
+icon: mdi:fan
+name: Bedroom Fan
+size: 75px
+show_state: true
+layout: name_state
+tap_action:
+  action: toggle
+state:
+  - value: 'on'
+    spin: true
+  - value: 'off'
